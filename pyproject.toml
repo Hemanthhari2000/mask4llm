@@ -1,0 +1,14 @@
+[project]
+name = "mask4llm"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+mask4llm = "mask4llm:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
