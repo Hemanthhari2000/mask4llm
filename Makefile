@@ -9,10 +9,13 @@ lint:  ## Run Ruff to check code
 format:  ## Format code using Ruff
 	uv run ruff format .
 
+typecheck: ## Typecheck using basedpyright
+	uv run basedpyright
+
 test:  ## Run tests using pytest
 	uv run pytest
 
-all-dev: lint format  ## Run lint and format
+all-dev: lint format typecheck ## Run lint format and typecheck
 
 clean:  ## Remove __pycache__ and .pyc files
 	find . -type d -name "__pycache__" -exec rm -r {} +
