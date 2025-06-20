@@ -17,6 +17,9 @@ test:  ## Run tests using pytest
 
 all-dev: lint format typecheck ## Run lint format and typecheck
 
+pre-commit: ## Run pre-commit
+	uv run pre-commit run --all-files
+
 clean:  ## Remove __pycache__ and .pyc files
 	find . -type d -name "__pycache__" -exec rm -r {} +
 	find . -type f -name "*.py[co]" -delete
