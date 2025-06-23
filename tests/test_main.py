@@ -3,13 +3,19 @@ from typing import NamedTuple
 
 import pytest
 
-from mask4llm.main import mask
+from mask4llm.main import mask, unmask
 
 
 class MaskParamTestType(NamedTuple):
     text: str
     patterns: str
     expected_keys: list[str]
+
+
+class UnMaskParamTestType(NamedTuple):
+    masked_text: str
+    mask_map: dict[str, str]
+    expected: str
 
 
 mask_param_test_cases = [
@@ -60,6 +66,34 @@ mask_param_test_cases = [
     ),
 ]
 
+unmask_param_test_cases = [
+    UnMaskParamTestType(
+        "My password is <<MASK_abc123>>",
+        {"secret": "<<MASK_abc123>>"},
+        "My password is secret",
+    ),
+    UnMaskParamTestType(
+        "Secrets: <<MASK_aaa111>>, <<MASK_bbb222>>",
+        {"foo": "<<MASK_aaa111>>", "bar": "<<MASK_bbb222>>"},
+        "Secrets: foo, bar",
+    ),
+    UnMaskParamTestType(
+        "<<MASK_aaa111>> loves <<MASK_aaa111>>",
+        {"John": "<<MASK_aaa111>>"},
+        "John loves John",
+    ),
+    UnMaskParamTestType(
+        "Nothing to unmask here",
+        {"secret": "<<MASK_xyz>>"},
+        "Nothing to unmask here",
+    ),
+    UnMaskParamTestType(
+        "<<MASK_1>> and <<MASK_2>> are different",
+        {"one": "<<MASK_1>>", "two": "<<MASK_2>>"},
+        "one and two are different",
+    ),
+]
+
 
 def is_valid_mask_format(mask: str) -> bool:
     return re.fullmatch(r"<<MASK_[a-f0-9]{6}>>", mask) is not None
@@ -76,3 +110,9 @@ def test_mask_replaces_expected_patterns(mask_case: MaskParamTestType) -> None:
         assert is_valid_mask_format(masks[key])
 
     assert set(masks.keys()) == set(expected_keys)
+
+
+@pytest.mark.parametrize("unmask_case", unmask_param_test_cases)
+def test_unmask(unmask_case: UnMaskParamTestType) -> None:
+    masked_text, mask_map, expected = unmask_case
+    assert unmask(masked_text, mask_map) == expected
