@@ -14,6 +14,12 @@ def mask(text: str, patterns: str) -> tuple[str, dict[str, str]]:
     return text, masks_map
 
 
+def unmask(masked_text: str, mask_map: dict[str, str]) -> str:
+    for original, placeholder in mask_map.items():
+        masked_text = masked_text.replace(placeholder, original)
+    return masked_text
+
+
 if __name__ == "__main__":
     text = "Hello, John!"
     patterns = r"John"
