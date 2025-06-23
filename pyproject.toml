@@ -20,3 +20,11 @@ dev = [
     "pytest>=8.4.0",
     "ruff>=0.11.12",
 ]
+
+[tool.ruff]
+lint.ignore = ["E501"]
+lint.select = ["E", "F", "I", "W"]
+line-length = 79
+lint.fixable = ["I"]
+exclude = [".env", ".venv", "venv"]
+output-format = "full"
