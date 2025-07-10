@@ -1,0 +1,35 @@
+Container {
+  height: 1fr;
+}
+
+Label {
+  margin-left: 1;
+}
+
+#id-input-container {
+  height: 2fr;
+  margin-bottom: 1;
+}
+
+#id-pattern-input-container {
+  height: auto;
+}
+
+#id-button-container {
+  layout: horizontal;
+  height: auto;
+  margin: 1 0 1 1;
+}
+
+#id-mask-btn {
+  margin-right: 1;
+}
+
+#id-output-log-label {
+  margin-left: 0;
+}
+
+#id-output-log-container {
+  height: 2fr;
+  margin-left: 1;
+}
