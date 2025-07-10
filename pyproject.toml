@@ -4,10 +4,12 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "textual[syntax]>=3.7.1",
+]
 
 [project.scripts]
-mask4llm = "mask4llm:main"
+mask4llm = "mask4llm:cli.main"
 
 [build-system]
 requires = ["hatchling"]
@@ -28,3 +30,7 @@ line-length = 79
 lint.fixable = ["I"]
 exclude = [".env", ".venv", "venv"]
 output-format = "full"
+
+[tool.pyright]
+include = ["src"]
+exclude = ["src/mask4llm/tui.py"] 
