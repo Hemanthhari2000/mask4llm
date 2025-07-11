@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "pyperclip>=1.9.0",
     "textual[syntax]>=3.7.1",
 ]
 
@@ -26,8 +27,8 @@ dev = [
 [tool.ruff]
 lint.ignore = ["E501"]
 lint.select = ["E", "F", "I", "W"]
-line-length = 79
 lint.fixable = ["I"]
+line-length = 79
 exclude = [".env", ".venv", "venv"]
 output-format = "full"
 
