@@ -4,6 +4,7 @@ from textual.containers import Container, Horizontal, Vertical
 from textual.widgets import Button, Footer, Header, Input, Label, TextArea
 
 from mask4llm.main import mask, unmask
+from mask4llm.session import load_session, save_session
 from mask4llm.util import display_dict_in_json_format, pipe_str
 from mask4llm.widgets.copy_on_enter_log import CopyOnEnterLog
 
@@ -55,6 +56,7 @@ class MaskerApp(App):
                 CopyOnEnterLog(id="id-mask-map-log", highlight=True),
                 id="id-mask-map-log-container",
             )
+
         yield Footer()
 
     def on_button_pressed(self, event: Button.Pressed):
@@ -66,7 +68,8 @@ class MaskerApp(App):
         output_log = self.query_one("#id-output-log", CopyOnEnterLog)
         mask_map_log = self.query_one("#id-mask-map-log", CopyOnEnterLog)
 
-        mask_map: dict[str, str] = dict()
+        session = load_session()
+        mask_map = session["masks"]
         if event.button.id == "id-mask-btn":
             if not input_text and len(input_patterns) == 1:
                 self.notify(
@@ -79,6 +82,8 @@ class MaskerApp(App):
 
             masked_text, new_map = mask(input_text, input_patterns)
             mask_map.update(new_map)
+            session["masks"] = mask_map
+            save_session(session)
             _ = output_log.clear().write(masked_text)
 
         elif event.button.id == "id-unmask-btn":
@@ -93,6 +98,7 @@ class MaskerApp(App):
             unmasked_text = unmask(input_text, mask_map)
             _ = output_log.clear().write(unmasked_text)
 
+        save_session(session)
         _ = mask_map_log.clear()
         display_dict_in_json_format(mask_map_log, mask_map)
 
