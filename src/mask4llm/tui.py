@@ -1,5 +1,7 @@
+from typing import override
+
 from rich.text import Text
-from textual.app import App
+from textual.app import App, ComposeResult
 from textual.containers import Container, Horizontal, Vertical
 from textual.widgets import Button, Footer, Header, Input, Label, TextArea
 
@@ -9,10 +11,11 @@ from mask4llm.util import display_dict_in_json_format, pipe_str
 from mask4llm.widgets.copy_on_enter_log import CopyOnEnterLog
 
 
-class MaskerApp(App):
-    CSS_PATH = "styles.tcss"
+class MaskerApp(App[None]):
+    CSS_PATH = "styles.tcss"  # pyright: ignore[reportUnannotatedClassAttribute]
 
-    def compose(self):
+    @override
+    def compose(self) -> ComposeResult:
         yield Header()
         with Horizontal():
             yield Vertical(
@@ -115,4 +118,5 @@ class MaskerApp(App):
 
 
 def run_tui():
-    MaskerApp().run()
+    masker_app = MaskerApp()
+    masker_app.run()
