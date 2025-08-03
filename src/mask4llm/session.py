@@ -29,6 +29,6 @@ def save_session(data: SessionContent) -> None:
         json.dump(data, f, indent=2)
 
 
-def clear_session():
+def clear_session() -> None:
     if SESSION_PATH.exists():
         SESSION_PATH.unlink()

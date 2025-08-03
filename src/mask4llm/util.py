@@ -10,7 +10,7 @@ def pipe_str(input: str) -> str:
 
 def display_dict_in_json_format(
     log_widget: CopyOnEnterLog, data: dict[str, str]
-):
-    json_str = json.dumps(data, indent=2)  # Pretty JSON string
+) -> None:
+    json_str = json.dumps(data, indent=2)
     for line in json_str.splitlines():
         _ = log_widget.write_line(line)
