@@ -3,7 +3,7 @@ from typing import NamedTuple
 
 import pytest
 
-from mask4llm.main import mask, unmask
+from mask4llm.masking import mask, unmask
 
 
 class MaskParamTestType(NamedTuple):

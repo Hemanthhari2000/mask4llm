@@ -5,7 +5,7 @@ from textual.app import App, ComposeResult
 from textual.containers import Container, Horizontal, Vertical
 from textual.widgets import Button, Footer, Header, Input, Label, TextArea
 
-from mask4llm.main import mask, unmask
+from mask4llm.masking import mask, unmask
 from mask4llm.session import load_session, save_session
 from mask4llm.util import display_dict_in_json_format, pipe_str
 from mask4llm.widgets.copy_on_enter_log import CopyOnEnterLog
