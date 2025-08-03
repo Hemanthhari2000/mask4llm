@@ -1,16 +1,36 @@
 [project]
 name = "mask4llm"
 version = "0.1.0"
-description = "Add your description here"
+description = "A terminal user interface (TUI) app built with Textual to easily mask and unmask sensitive information."
 readme = "README.md"
 requires-python = ">=3.12"
+keywords = ["TUI", "Textual", "masking", "unmasking", "privacy"]
+license = {text = "MIT"}
+classifiers = [
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Utilities",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Environment :: Console",
+    "Environment :: Console :: Curses",
+    "Natural Language :: English",
+]
+authors = [
+    {name = "Hemanth Kumar", email = "hemanthhari2000@gmail.com"},
+]
+
 dependencies = [
     "pyperclip>=1.9.0",
     "textual[syntax]>=3.7.1",
 ]
 
 [project.scripts]
-mask4llm = "mask4llm:cli.main"
+mask4llm = "mask4llm:app.main"
 
 [build-system]
 requires = ["hatchling"]
@@ -34,4 +54,3 @@ output-format = "full"
 
 [tool.pyright]
 include = ["src"]
-exclude = ["src/mask4llm/tui.py"] 
